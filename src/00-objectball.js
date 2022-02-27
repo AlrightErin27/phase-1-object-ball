@@ -115,4 +115,92 @@ function gameObject() {
   };
   return obj;
 }
-console.log(gameObject());
+//console.log(gameObject());
+
+//making my object a var
+const game = gameObject();
+function playersObj() {
+  return { ...game.home.players, ...game.away.players };
+}
+const players = playersObj();
+const teams = Object.values(game);
+
+function numPointsScored(name) {
+  // Build a function, numPointsScored that takes in an argument of
+  // a player's name and returns the number of points scored for that player.
+  // Think about where in the object you will find a player's points.
+  // How can you iterate down into that level?
+  // Think about the return value of your function.
+  return players[name].points;
+}
+//console.log(numPointsScored("Brendan Hayword"));
+
+function shoeSize(name) {
+  // Build a function, shoeSize, that takes in an argument of a player's
+  // name and returns the shoe size for that player.
+  // Think about how you will find the shoe size of the correct player.
+  // How can you check and see if a player's name matches the name that
+  //  has been passed into the function as an argument?
+  return players[name].shoe;
+}
+//console.log(numPointsScored("Brendan Hayword"));
+
+function findByTeamName(teamName) {
+  return teams.find((team) => team.teamName === teamName);
+}
+
+function teamColors(teamName) {
+  // Build a function, teamColors, that takes in an argument of
+  // the team name and returns an array of that teams colors.
+  return findByTeamName(teamName).colors;
+}
+//console.log(teamColors("Charlotte Hornets"));
+
+function teamNames() {
+  // Build a function, teamNames, that operates on the game object to return an
+  // array of the team names.
+  return teams.map((team) => team.teamName);
+}
+//console.log(teamNames());
+
+function playerNumbers(targetTeamName) {
+  // Build a function, playerNumbers, that takes in an argument of
+  // a team name and returns an array of the jersey number's for that team.
+  for (const i of teams) {
+    if (i.teamName === targetTeamName) {
+      let stats = Object.values(i.players);
+      return stats.map((stat) => stat.number);
+    }
+  }
+}
+//console.log(playerNumbers("Charlotte Hornets"));
+
+function playerStats(playerName) {
+  // Build a function, playerStats, that takes in an argument of a player's
+  // name and returns a object of that player's stats.
+  return players[playerName];
+}
+//console.log(playerStats("Jason Terry"));
+
+function bigShoeRebounds() {
+  // Build a function, bigShoeRebounds, that will return the number of
+  // rebounds associated with the player that has the largest shoe size.
+  //
+  // Break this one down into steps:
+  // First, find the player with the largest shoe size
+  // Then, return that player's number of rebounds
+  // Remember to think about return values here. Use debugger to drop into your
+  // function and understand what it is returning and why.
+  const biggestShoe = Object.values(players).sort((a, b) => {
+    if (a.shoe > b.shoe) {
+      return -1;
+    } else if (a.shoe < b.shoe) {
+      return 1;
+    } else {
+      return 0;
+    }
+  })[0];
+
+  return biggestShoe.rebounds;
+}
+//console.log(bigShoeRebounds());
